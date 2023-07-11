@@ -19,9 +19,9 @@ function getComputerChoice() {
 // Declares a winner
 function winOrLose(win, userSelection, computerSelection) {
     if (win === true) {
-        console.log(`You win! ${titleCase(userSelection)} beats ${titleCase(computerSelection)}`)
+        return `You win! ${titleCase(userSelection)} beats ${titleCase(computerSelection)}`
     } else if (win === false) {
-        console.log(`You lose! ${titleCase(computerSelection)} beats ${titleCase(userSelection)}`)
+        return `You lose! ${titleCase(computerSelection)} beats ${titleCase(userSelection)}`
     }
 }
 
@@ -33,7 +33,7 @@ function playRound() {
     if (userSelection === 'rock' || userSelection === 'paper' || userSelection === 'scissors') {
         switch (userSelection) {
             case computerSelection:
-                console.log(`It was a Tie! ${titleCase(userSelection)} ties ${titleCase(computerSelection)}`)
+                return `It was a Tie! ${titleCase(userSelection)} ties ${titleCase(computerSelection)}`
                 break
 
             case 'rock':
@@ -61,6 +61,6 @@ function playRound() {
                 break
         }
     } else {
-        console.log('Error: Only enter Rock, Paper, or Scissors!')
+        return 'Error: Only enter Rock, Paper, or Scissors!'
     }
 }
