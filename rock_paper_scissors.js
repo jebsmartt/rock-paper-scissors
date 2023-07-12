@@ -70,6 +70,24 @@ function game(numberOfGames) {
     }
 }
 
+function displayResults(userChoice) {
+    // Add a div to the page to display the log messages to track what is happening
+    // 1. Use createElement to create a new div
+    const resultsDiv = document.createElement('div');
+    // 2. Determine the target for your new element
+    const body = document.body;
+    // 3. Optionally customize the created new div before adding it to target
+    resultsDiv.style.background = 'lightgrey'
+    resultsDiv.style.border = '2px solid black'
+    resultsDiv.style.marginTop = '20px'
+    resultsDiv.style.padding = '15px'
+    resultsDiv.textContent = playRound(userChoice)
+
+    // 4. Add element to target
+    body.appendChild(resultsDiv);
+}
+
+
 // Add an event listener for the buttons that call the playRound function
 // 1. Create a constant
 const playerSelectionButtons = document.querySelectorAll('.playerSelection')
@@ -78,8 +96,7 @@ playerSelectionButtons.forEach(function(button) {
     // 3. Add an event listener for click
     button.addEventListener('click', function(e) {
         console.log(e.target.id);
-        // pass the appropriate value to the playRound function
-        let result = playRound(e.target.id)
-        console.log(result)
+        displayResults(e.target.id)
     });
 });
+
