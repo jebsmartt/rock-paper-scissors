@@ -26,8 +26,8 @@ function winOrLose(win, userSelection, computerSelection) {
 }
 
 // Determines a winner
-function playRound() {
-    let userSelection = prompt("Choose Rock, Paper, or Scissors: ").toLowerCase()
+function playRound(userSelection) {
+    // let userSelection = prompt("Choose Rock, Paper, or Scissors: ").toLowerCase()
     let computerSelection = getComputerChoice()
 
     if (userSelection === 'rock' || userSelection === 'paper' || userSelection === 'scissors') {
@@ -69,3 +69,17 @@ function game(numberOfGames) {
         console.log(playRound())
     }
 }
+
+// Add an event listener for the buttons that call the playRound function
+// 1. Create a constant
+const playerSelectionButtons = document.querySelectorAll('.playerSelection')
+// 2. Do a for each to apply to each mention of button
+playerSelectionButtons.forEach(function(button) {
+    // 3. Add an event listener for click
+    button.addEventListener('click', function(e) {
+        console.log(e.target.id);
+        // pass the appropriate value to the playRound function
+        let result = playRound(e.target.id)
+        console.log(result)
+    });
+});
