@@ -92,10 +92,6 @@ function displayResults(userChoice) {
     } else {
         existingDiv.textContent = playRound(userChoice);
     };
-    
-    
-    
-    
 }
 
 
