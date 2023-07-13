@@ -26,7 +26,7 @@ function winOrLose(winner, userSelection, computerSelection) {
 
     } else if (winner === 'computer') {
         return {
-            result: 'loss',
+            result: 'lose',
             message: `You lose! ${titleCase(computerSelection)} beats ${titleCase(userSelection)}`,
         }
     } else {
@@ -78,10 +78,17 @@ function playRound(userSelection) {
 
 function displayResults(userChoice) {
     // Add a div to the page to display the log messages to track what is happening
-    let existingDiv = document.getElementById('results-bar')
+    let existingResultsDiv = document.getElementById('results-bar')
 
     let result = playRound(userChoice)
-    existingDiv.textContent = result.message;
+    if (result.result === 'win') {
+        existingResultsDiv.style.backgroundColor = 'lightgreen'
+    } else if (result.result === 'lose') {
+        existingResultsDiv.style.backgroundColor = '#cc7b7b'
+    } else {
+        existingResultsDiv.style.backgroundColor = 'lightgrey'
+    };
+    existingResultsDiv.textContent = result.message;
 
     // if (!existingDiv) {
     //     // 1. Use createElement to create a new div
@@ -122,3 +129,4 @@ playerSelectionButtons.forEach(function(button) {
 // I need to identify if one of the players has reached 5
 // I need a way to display the count
 // I need a way to display the winner
+
