@@ -1,0 +1,38 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+}
+
+#selectionButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    border: 2px solid black;
+    margin: 20px;
+    padding: 20px;
+}
+
+.playerSelection {
+    min-width: 100px;
+    flex-shrink: 0;
+    background-color: #4db2ec;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+#results-bar {
+    background-color: lightgrey;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+}

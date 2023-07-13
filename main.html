@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="rock_paper_scissors.js" defer></script>
     <title>Rock, Paper, Scissors!</title>
 </head>
 <body>
-    <button class="playerSelection" id="rock">Rock</button>
-    <button class="playerSelection" id="paper">Paper</button>
-    <button class="playerSelection" id="scissors">Scissors</button>
+    <div id="title"><h1>Let's Play: Rock Paper Scissors</h1></div>
+    <div id="selectionButtons">
+        <h3>Choose an option to play:</h3>
+        <button class="playerSelection" id="rock">Rock</button>
+        <button class="playerSelection" id="paper">Paper</button>
+        <button class="playerSelection" id="scissors">Scissors</button>
+    </div>
+    <div id="results-bar"></div>
+    <div id="scoreboard"></div>
 </body>
 </html>
