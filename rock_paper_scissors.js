@@ -37,6 +37,29 @@ function updateStatGroup(winner) {
     totalGamesTarget.textContent = `${gameCounter}`
 }
 
+function resetStatGroup() {
+    gameCounter = 0
+    playerWinTotal = 0
+    computerWinTotal = 0
+    
+    let userWinTarget = document.getElementById('userWinCounter')
+    userWinTarget.textContent = `${playerWinTotal}/5`
+
+    let totalGamesTarget = document.getElementById('totalGamesCounter')
+    totalGamesTarget.textContent = `--`
+
+    let computerWinTarget = document.getElementById('computerWinCounter')
+    computerWinTarget.textContent = `${playerWinTotal}/5`
+
+}
+
+function resetResultsBar() {
+    let existingResultsDiv = document.getElementById('results-bar')
+
+    existingResultsDiv.textContent = '...'
+    existingResultsDiv.style.backgroundColor = 'lightgrey'
+}
+
 // Declares a winner
 function winOrLose(winner, userSelection, computerSelection) {
     
@@ -119,22 +142,6 @@ function displayResults(userChoice) {
     existingResultsDiv.textContent = result.message;
 }
 
-// Add an event listener for the buttons that call the playRound function
-// 1. Create a constant
-
-
-function gameState() {
-    
-// 2) In game (display controls)
-    // Once defualt button is pushed:
-        
-        // Start game session...track wins, etc.
-// 3) End game (overall winner or loser)
-    // 3a) Winner screen
-    // 3b) Loser screen
-
-}
-
 const controlAreaDiv = document.getElementById('control-area')
 // 1) First load of page
 const playGameButton = document.createElement('button')
@@ -144,13 +151,21 @@ playGameButton.textContent = 'Play a Game'
 
 controlAreaDiv.appendChild(playGameButton)
 
+playGameButton.classList.add('playerSelection')
+
 playGameButton.addEventListener('click', function() {
 
     gameIsActive = true
     console.log('The game is active')
     
     // Swap to in-game state where controls are displayed
-    playGameButton.remove();
+    while (controlAreaDiv.firstChild) {
+        controlAreaDiv.removeChild(controlAreaDiv.firstChild);
+    }
+    controlAreaDiv.style.backgroundColor = '#dfd4c6'
+    
+    resetStatGroup()
+    resetResultsBar()
 
     // Add the prompt next to the button group
     const selectionButtonPrompt = document.createElement('h3')
@@ -198,7 +213,27 @@ playGameButton.addEventListener('click', function() {
             // activeGameSession()
             gameCounter += 1
             displayResults(e.target.id)
+            if (playerWinTotal === 5 || computerWinTotal === 5) {
+                let endGameMessage = document.createElement('h3')
+                
+                while (controlAreaDiv.firstChild) {
+                    controlAreaDiv.removeChild(controlAreaDiv.firstChild);
+                }
 
+                if (playerWinTotal === 5) {
+                    // Display congratulations
+                    endGameMessage.textContent = 'You beat the computer!'
+                    controlAreaDiv.style.backgroundColor = 'lightgreen'
+                    controlAreaDiv.appendChild(endGameMessage)
+                } else if (computerWinTotal === 5) {
+                    endGameMessage.textContent = 'The computer beat you! Try Again!'
+                    controlAreaDiv.style.backgroundColor = '#cc7b7b' //lightred
+                    controlAreaDiv.appendChild(endGameMessage)
+                }
+
+                gameIsActive = false
+                controlAreaDiv.appendChild(playGameButton)
+            }
         });
     });
 
