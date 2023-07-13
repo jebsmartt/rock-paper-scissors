@@ -1,4 +1,8 @@
 const options = ["rock", "paper", "scissors"]
+let gameIsActive = false
+let playerWinTotal = 0
+let computerWinTotal = 0
+let gameCounter = 0
 
 function titleCase(string) {
     let sentence = string.toLowerCase().split(" ")
@@ -18,13 +22,16 @@ function getComputerChoice() {
 
 // Declares a winner
 function winOrLose(winner, userSelection, computerSelection) {
+    gameCounter += 1;
     if (winner === 'player') {
+        playerWinTotal += 1;
         return {
             result: 'win',
             message: `You win! ${titleCase(userSelection)} beats ${titleCase(computerSelection)}`,
         }
 
     } else if (winner === 'computer') {
+        computerWinTotal += 1;
         return {
             result: 'lose',
             message: `You lose! ${titleCase(computerSelection)} beats ${titleCase(userSelection)}`,
@@ -89,44 +96,28 @@ function displayResults(userChoice) {
         existingResultsDiv.style.backgroundColor = 'lightgrey'
     };
     existingResultsDiv.textContent = result.message;
-
-    // if (!existingDiv) {
-    //     // 1. Use createElement to create a new div
-    //     const resultsDiv = document.createElement('div');
-    //     // 2. Determine the target for your new element
-    //     const body = document.body;
-    //     // 3. Optionally customize the created new div before adding it to target
-    //     resultsDiv.id = 'resultsDiv';
-    //     resultsDiv.style.background = 'lightgrey'
-    //     resultsDiv.style.border = '2px solid black'
-    //     resultsDiv.style.marginTop = '20px'
-    //     resultsDiv.style.padding = '15px'
-    //     resultsDiv.textContent = playRound(userChoice)
-
-    // // 4. Add element to target
-    //     body.appendChild(resultsDiv);
-    // } else {
-    //     existingDiv.textContent = playRound(userChoice);
-    // };
 }
 
+
+function activeGameSession() {
+    while (playerWinTotal < 5 && computerWinTotal < 5) {
+        gameIsActive = true
+    }
+}
 
 // Add an event listener for the buttons that call the playRound function
 // 1. Create a constant
 const playerSelectionButtons = document.querySelectorAll('.playerSelection')
+
 // 2. Do a for each to apply to each mention of button
 playerSelectionButtons.forEach(function(button) {
     // 3. Add an event listener for click
     button.addEventListener('click', function(e) {
         console.log(e.target.id);
+        // activeGameSession()
         displayResults(e.target.id)
     });
 });
 
 
-// Left off -- Display the running score, and announce a winner of the game once one player reaches 5 points.
-// I need a counter for each player
-// I need to identify if one of the players has reached 5
-// I need a way to display the count
-// I need a way to display the winner
 
