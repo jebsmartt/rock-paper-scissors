@@ -11,6 +11,15 @@ body {
     justify-content: center;
 }
 
+#description {
+    display: flex;
+    justify-content: center;
+}
+
+#description p {
+    margin-top: 0px;
+}
+
 #control-area {
     display: flex;
     justify-content: center;
