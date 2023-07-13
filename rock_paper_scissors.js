@@ -1,9 +1,10 @@
 const options = ["rock", "paper", "scissors"]
 let gameIsActive = false
+let gameCounter = 0
 let playerWinTotal = 0
 let computerWinTotal = 0
-let gameCounter = 0
 
+// Utility for displaying anything in title case
 function titleCase(string) {
     let sentence = string.toLowerCase().split(" ")
     for(let i = 0; i< sentence.length; i++) {
@@ -20,11 +21,28 @@ function getComputerChoice() {
     return computerChoice
 }
 
+function updateStatGroup(winner) {
+    if (winner === 'player') {
+        let target = document.getElementById('userWinCounter')
+
+        target.textContent = `${playerWinTotal}/5`
+    } else if(winner === 'computer') {
+        let target = document.getElementById('computerWinCounter')
+
+        target.textContent = `${computerWinTotal}/5`
+    }
+
+    let totalGamesTarget = document.getElementById('totalGamesCounter')
+
+    totalGamesTarget.textContent = `${gameCounter}`
+}
+
 // Declares a winner
 function winOrLose(winner, userSelection, computerSelection) {
-    gameCounter += 1;
+    
     if (winner === 'player') {
         playerWinTotal += 1;
+        updateStatGroup(winner)
         return {
             result: 'win',
             message: `You win! ${titleCase(userSelection)} beats ${titleCase(computerSelection)}`,
@@ -32,17 +50,20 @@ function winOrLose(winner, userSelection, computerSelection) {
 
     } else if (winner === 'computer') {
         computerWinTotal += 1;
+        updateStatGroup(winner)
         return {
             result: 'lose',
             message: `You lose! ${titleCase(computerSelection)} beats ${titleCase(userSelection)}`,
         }
     } else {
+        updateStatGroup(winner)
         return {
             result: 'tie',
             message: `It was a Tie! ${titleCase(userSelection)} ties ${titleCase(computerSelection)}`,
         }
     }
 }
+
 
 // Determines a winner
 function playRound(userSelection) {
@@ -98,26 +119,89 @@ function displayResults(userChoice) {
     existingResultsDiv.textContent = result.message;
 }
 
-
-function activeGameSession() {
-    while (playerWinTotal < 5 && computerWinTotal < 5) {
-        gameIsActive = true
-    }
-}
-
 // Add an event listener for the buttons that call the playRound function
 // 1. Create a constant
-const playerSelectionButtons = document.querySelectorAll('.playerSelection')
 
-// 2. Do a for each to apply to each mention of button
-playerSelectionButtons.forEach(function(button) {
-    // 3. Add an event listener for click
-    button.addEventListener('click', function(e) {
-        console.log(e.target.id);
-        // activeGameSession()
-        displayResults(e.target.id)
+
+function gameState() {
+    
+// 2) In game (display controls)
+    // Once defualt button is pushed:
+        
+        // Start game session...track wins, etc.
+// 3) End game (overall winner or loser)
+    // 3a) Winner screen
+    // 3b) Loser screen
+
+}
+
+const controlAreaDiv = document.getElementById('control-area')
+// 1) First load of page
+const playGameButton = document.createElement('button')
+
+playGameButton.id = 'playGameButton'
+playGameButton.textContent = 'Play a Game'
+
+controlAreaDiv.appendChild(playGameButton)
+
+playGameButton.addEventListener('click', function() {
+
+    gameIsActive = true
+    console.log('The game is active')
+    
+    // Swap to in-game state where controls are displayed
+    playGameButton.remove();
+
+    // Add the prompt next to the button group
+    const selectionButtonPrompt = document.createElement('h3')
+    selectionButtonPrompt.textContent = "Choose an option to play:"
+    controlAreaDiv.appendChild(selectionButtonPrompt)
+    
+    // Add the button group
+    const selectionButtons = document.createElement('div')
+    selectionButtons.id = 'selectionButtons'
+    controlAreaDiv.appendChild(selectionButtons)
+
+    // Add buttons to button group
+    const rockButton = document.createElement('button')
+    rockButton.id = 'rock'
+    rockButton.textContent = 'Rock'
+
+    const paperButton = document.createElement('button')
+    paperButton.id = 'paper'
+    paperButton.textContent = 'Paper'
+
+    const scissorsButton = document.createElement('button')
+    scissorsButton.id = 'scissors'
+    scissorsButton.textContent = 'Scissors'
+
+    let buttonsInSelectionButtons = selectionButtons.getElementsByTagName('button')
+
+    selectionButtons.appendChild(rockButton)
+    selectionButtons.appendChild(paperButton)
+    selectionButtons.appendChild(scissorsButton)
+
+    // Add class to buttons. Must happen after elements appended.
+    for (i=0; i < buttonsInSelectionButtons.length;i++) {
+        buttonsInSelectionButtons[i].classList.add('playerSelection')
+    }
+
+    // Add a listener to the player selection buttons
+    const playerSelectionButtons = document.querySelectorAll('.playerSelection')
+
+    // 2. Do a for each to apply to each mention of button
+    playerSelectionButtons.forEach(function(button) {
+        // 3. Add an event listener for click
+        button.addEventListener('click', function(e) {
+            console.log(e.target.id);
+            
+            // activeGameSession()
+            gameCounter += 1
+            displayResults(e.target.id)
+
+        });
     });
-});
 
+})
 
 
