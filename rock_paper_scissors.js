@@ -232,6 +232,7 @@ playGameButton.addEventListener('click', function() {
                 }
 
                 gameIsActive = false
+                console.log('The game is not active.')
                 controlAreaDiv.appendChild(playGameButton)
             }
         });
